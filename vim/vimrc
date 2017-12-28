@@ -1,0 +1,264 @@
+set shell=/bin/bash
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'chriskempson/base16-vim'            " base16 colors
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'fatih/vim-go'
+"Plugin 'Shougo/neocomplete.vim'
+Plugin 'ervandew/supertab'
+Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'moll/vim-node'
+Plugin 'chemzqm/vim-jsx-improve'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'sheerun/vim-polyglot'
+"Plugin 'ternjs/tern_for_vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'vim-scripts/ZoomWin'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'vim-pandoc/vim-pandoc'              " Pandoc Markdown support
+Plugin 'vim-pandoc/vim-pandoc-syntax'       " Pandoc Markdown support
+Plugin 'itchyny/calendar.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'AndrewRadev/id3.vim'
+
+call vundle#end()
+filetype plugin indent on
+
+set clipboard=unnamed
+
+"" Grovbox
+
+let g:gruvbox_italic=1
+
+""  Vim Go
+
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_functions = 1
+
+"" Auto change buffer directory
+autocmd BufEnter * silent! lcd %:p:h
+
+syntax enable
+syntax on
+set encoding=utf-8
+set termencoding=utf-8
+
+let mapleader = "\<Space>"
+
+"" Configure Airline
+let g:airline_powerline_fonts=1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline_theme='gruvbox'
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>- <Plug>AirlineSelectPrevTab
+nmap <leader>+ <Plug>AirlineSelectNextTab
+
+"" Configure Neo
+let g:neocomplete#enable_at_startup = 1
+
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+
+if !exists('g:neocomplete#sources#omni#functions')
+  let g:neocomplete#sources#omni#functions = {}
+endif
+
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+let g:neocomplete#sources#omni#functions.javascript = 'tern#Complete'
+
+"" Configure CtrlP
+
+let g:ctrlp_user_command = 'find %s -type f -not -path "*.git/*" -not -path "*node_modules*" -not -path "*jspm_packages*" -not -path "*dist*" -not -path "*bower_components*" -not -path "*tmp*"'
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+
+set hlsearch
+set incsearch
+set backspace=indent,eol,start
+set autoindent
+set smartindent
+set smartcase
+set hidden
+
+set undofile
+set undodir=$HOME/.vim/undo
+set undolevels=1000
+set undoreload=10000
+
+set list
+set listchars=
+set listchars+=tab:→\ 
+set listchars+=trail:·
+set listchars+=extends:»              " show cut off when nowrap
+set listchars+=precedes:«
+set listchars+=nbsp:⣿
+
+"" Gotags definitions
+set tags+=./
+let g:tagbar_type_go = 
+    \{ 'ctagstype' : 'go',
+    \ 'kinds'     : [ 'p:package', 'i:imports:1',
+    \ 'c:constants', 'v:variables', 't:types',
+    \ 'n:interfaces', 'w:fields', 'e:embedded',
+    \ 'm:methods', 'r:constructor', 'f:functions' ],
+    \ 'sro' : '.', 'kind2scope' : { 't' : 'ctype',
+    \ 'n' : 'ntype' }, 'scope2kind' : {
+    \ 'ctype' : 't', 'ntype' : 'n' },
+    \ 'ctagsbin'  : 'gotags', 'ctagsargs' : '-sort -silent'}
+
+"" set line numbers
+set relativenumber
+set cursorline
+set scrolloff=5
+set nu
+
+set shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+
+autocmd FileType javascript setlocal suffixesadd=".js,.jsx"
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+autocmd FileType javascript setlocal omnifunc=tern#Complete
+autocmd FileType javascript iab :+ :=
+autocmd FileType javascript set formatprg=cd\ /home/travis/src/github.com/getoutreach/outreach/client;\ npm\ run\ -s\ bin\ --\ prettier-eslint\ --stdin
+""autocmd BufWritePre *.js :normal gggqG
+""autocmd BufWritePre *.jsx :normal gggqG
+
+autocmd FileType stylus setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+
+autocmd FileType go setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
+autocmd FileType go iab :+ :=
+autocmd FileType go let g:SuperTabDefaultCompletionType="<c-x><c-o>"
+
+autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+
+command! W w
+command! Q q
+command! WQ wq
+command! Wq wq
+
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+inoremap <ESC> <NOP>
+inoremap jk <ESC>
+
+map <Leader>w <C-w>w
+map <Leader>q :wq<CR>
+map <Leader>n :nohl<CR>
+map <Leader>tt :TagbarToggle<CR>
+map <Leader>tr :NERDTreeToggle<CR>
+map <Leader>tg :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extras=+q .<CR>
+map <Leader>p :CtrlPTag<CR>
+map <Leader>d :GoDef<CR>
+map <Leader>i :GoImplements<CR>
+map <Leader>b :GoBuild<CR>
+map <Leader>v :GoTest<CR>
+map <Leader>n :GoRun<CR>
+
+syntax enable                       " Enable syntax processing
+let base16colorspace=256
+set t_Co=256                        " Set 256 colors
+set background=dark                 " Optimize colors for dark background
+colorscheme gruvbox         " Set colorscheme (see base16 plugin)
+
+highlight Pmenu ctermbg=238 gui=bold
+highlight Visual term=NONE ctermbg=0
+
+" Search highlighting
+highlight Search ctermbg=3 ctermfg=0
+highlight IncSearch ctermbg=17 ctermfg=18
+
+" Pandoc Syntax
+highlight pandocAtxHeader ctermfg=16 cterm=bold
+highlight pandocAtxStart ctermfg=17
+highlight pandocSetexHeader ctermfg=03 cterm=bold
+highlight pandocStrong ctermfg=21
+highlight pandocStrongEmphasis ctermfg=21 gui=bold,italic cterm=bold,italic
+highlight pandocStrongInEmphasis ctermfg=21 gui=bold,italic cterm=bold,italic
+highlight pandocEmphasisInStrong ctermfg=05 gui=bold,italic cterm=bold,italic
+highlight pandocTableHeaderWord ctermfg=06 cterm=bold
+highlight pandocGridTableDelims ctermfg=06
+highlight pandocGridTableHeader ctermfg=06
+highlight pandocDelimitedCodeBlock ctermfg=02
+highlight pandocHRule ctermfg=19 cterm=bold
+
+function! RangeChooser()
+    let temp = tempname()
+    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
+    " with ranger 1.4.2 through 1.5.0 instead.
+    "exec 'silent !ranger --choosefile=' . shellescape(temp)
+    if has("gui_running")
+        exec 'silent !xterm -e ranger --choosefiles=' . shellescape(temp)
+    else
+        exec 'silent !ranger --choosefiles=' . shellescape(temp)
+    endif
+    if !filereadable(temp)
+        redraw!
+        " Nothing to read.
+        return
+    endif
+    let names = readfile(temp)
+    if empty(names)
+        redraw!
+        " Nothing to open.
+        return
+    endif
+    " Edit the first item.
+    exec 'edit ' . fnameescape(names[0])
+    " Add any remaning items to the arg list/buffer list.
+    for name in names[1:]
+        exec 'argadd ' . fnameescape(name)
+    endfor
+    redraw!
+endfunction
+
+command! -bar RangerChooser call RangeChooser()
+nnoremap <leader>r :<C-U>RangerChooser<CR>
+
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swp//
+set noautochdir
+
+match error /\cheigth\|lenght\|widht/
+

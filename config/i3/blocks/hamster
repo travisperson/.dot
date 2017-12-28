@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Set Icon
+ACTIVITY=$(gcalcli --nostarted --calendar "travis.person@outreach.io" agenda --nocolor $(date +%m/%d/%Y) $(date --date="tomorrow" +%m/%d/%Y) | cut -d " " -f 4- | head -2 | tail -1 | sed "s/^ *//g" | sed "s/    / /g")
+ACTIVITY=${ACTIVITY:-"No Meetings"}
+
+echo "$ACTIVITY"     # Full text label
+echo "$ACTIVITY"     # Short text label (Used when status line gets too long)

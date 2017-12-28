@@ -1,0 +1,223 @@
+#-------------------------#
+#    i3 Definition        #
+#-------------------------#
+
+# Set super as modifier key
+set $mod Mod4
+
+# Set font family
+font pango:source-code-pro-medium 10
+
+#-------------------------#
+#    Color Definition     #
+#-------------------------#
+
+# Define colors
+set $base00 #282828
+set $base01 #504945
+set $base02 #7c6f54
+set $base03 #ebdbb2
+set $base04 #bdae93
+set $base05 #d5c4a1
+set $base06 #ebdbb2
+set $base07 #fbf1c7
+set $base08 #cc241d
+set $base09 #d65d0e
+set $base0A #d79921
+set $base0B #98971a
+set $base0C #689d6a
+set $base0D #458588
+set $base0E #b16286
+set $base0F #a89984
+
+#set $transparent #00000000
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Start a terminal
+bindsym $mod+Return exec urxvt
+
+bindsym $mod+Shift+q kill
+
+# Application Launcher / Window Switcher
+bindsym $mod+n     exec "rofi -show run"
+bindsym $mod+d     exec "rofi -show drun"
+bindsym $mod+Tab   exec "rofi -show window"
+
+# Screenshots
+bindsym --release Print        exec "scrot -z ~/tmp/screenshots/%Y-%m-%d_%k:%M:%S.png"
+bindsym --release Mod1+Sys_Req exec "scrot -zu ~/tmp/screenshots/%Y-%m-%d_%k:%M:%S.png"
+bindsym --release Shift+Print  exec "scrot -zs ~/tmp/screenshots/%Y-%m-%d_%k:%M:%S.png"
+
+# Background
+bindsym $mod+b exec --no-startup-id "reddit-background ultrahdwallpapers:top:10:week"
+
+# Fix displays
+bindsym $mod+m exec --no-startup-id "~/.screenlayout/default.sh"
+
+## Symbol Keys
+# bindsym XF86MonBrightnessUp   exec xbacklight -inc 20 # increase screen brightness
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# exec --no-startup-id /usr/bin/xcompmgr -c
+exec --no-startup-id redshift-gtk
+
+#-------------------------#
+#       Workspaces        #
+#-------------------------#
+
+# Name workspaces
+set $ws1    1
+set $ws2    2
+set $ws3    3
+set $ws4    4
+set $ws5    5
+set $ws6    6
+set $ws7    7
+set $ws8    8
+set $ws9    9
+set $ws10   10
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Split orientation 
+bindsym $mod+g split h
+bindsym $mod+v split v
+
+# Toggle container fullscreen
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+z focus child
+
+# show scratchpad
+bindsym $mod+p scratchpad show
+
+# move to scratchpad
+bindsym $mod+shift+p move scratchpad
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Switch to last workspace
+bindsym $mod+semicolon workspace back_and_forth
+
+# Tab between workspaces on current display
+#bindsym $mod+Tab workspace next_on_output
+#bindsym $mod+Shift+Tab workspace prev_on_output
+
+# Move focused workspace to monitor 
+bindsym $mod+bracketleft move workspace to output left
+bindsym $mod+bracketright move workspace to output right
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# Resize contains
+bindsym $mod+r mode "resize"
+mode "resize" {
+  bindsym h resize shrink width 1 px or 1 ppt
+  bindsym j resize grow height 1 px or 1 ppt
+  bindsym k resize shrink height 1 px or 1 ppt
+  bindsym l resize grow width 1 px or 1 ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+for_window [class="^.*"] border pixel 4
+for_window [instance="^crx_knipolnnllmklapflnccelgolnpehhpl$"] floating disable
+
+# Window colors
+#                        border      backgrnd    text       indicator
+client.focused          $base0D     $base0D     $base00     $base01
+client.focused_inactive $base02     $base02     $base03     $base01
+client.unfocused        $base01     $base01     $base03     $base01
+client.urgent           $base02     $base08     $base07     $base08
+
+# Power menu
+set $sysmenu "  [r]estart - [l]ogout - [s]uspend - re[b]oot - po[w]eroff  "
+bindsym $mod+Shift+e      mode $sysmenu
+
+mode --pango_markup $sysmenu {
+    bindsym r         restart
+    bindsym l         exit
+    bindsym w         exec "systemctl poweroff"
+    bindsym b         exec "systemctl reboot"
+    bindsym s         mode "default"; exec "systemctl suspend"
+    bindsym Return    mode "default"
+    bindsym Escape    mode "default"
+}
+
+#-------------------------#
+#         i3bar           #
+#-------------------------#
+
+# Start i3bar to display a workspace bar
+bar {
+        position        top
+        # tray_output   none
+
+        strip_workspace_numbers yes
+        status_command  "i3blocks -c $HOME/.config/i3/i3blocks.conf"
+        colors {
+            #                   border      backgrnd    text
+            background                      $base00
+            statusline                                  $base07
+            separator           $base03
+
+            focused_workspace   $base0D     $base0D     $base00
+            active_workspace    $base02     $base02     $base07
+            inactive_workspace  $base01     $base01     $base03
+            urgent_workspace    $base08     $base01     $base07
+            binding_mode        $base00     $base00     $base05
+        }
+}

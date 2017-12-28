@@ -1,0 +1,7 @@
+ffmpeg-compat-54
+ffmpeg-compat-55
+i3lock-color-git
+libavutil-52
+paper-icon-theme-git
+pop-gtk-theme-git
+ttf-font-awesome
