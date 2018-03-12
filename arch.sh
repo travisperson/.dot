@@ -52,16 +52,12 @@ grub-install --target=i386-pc /dev/sda
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-#usermod --password $(echo 'a' | openssl passwd -1 -stdin) root
-#passwd
-
 useradd -m travis -G wheel
 
 mkdir /home/travis/dot
 curl -L https://api.github.com/repos/travisperson/.dot/tarball | tar xz -C /home/travis/dot --strip=1
 
 chown -R travis:travis /home/travis
-echo "root:a" > chpasswd
 
 cat >> /etc/pacman.conf <<EOF
 
@@ -75,6 +71,11 @@ cat >> /home/travis/.bash_profile <<EOF
 EOF
 
 ln -s /home/travis/dot/setup.sh /home/travis/.setup
+
+echo "Root password"
+passwd root
+echo "User password"
+passwd travis
 
 exit
 
