@@ -10,7 +10,6 @@ fish
 git
 htop
 httpie
-id3
 imagemagick
 jq
 mplayer
