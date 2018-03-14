@@ -67,7 +67,7 @@ cat >> /etc/pacman.conf <<EOF
 
 [archlinuxfr]
 SigLevel = Never
-Server = https://repo.archlinux.fr/\$arch
+Server = https://repo.archlinux.fr/\\\$arch
 EOF
 
 cat >> /home/travis/.bash_profile <<EOF
