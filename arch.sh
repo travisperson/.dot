@@ -18,6 +18,9 @@ EOF
 mkfs.ext4 /dev/sda2
 mount /dev/sda2 /mnt
 
+mkdir -p /mnt/var/cache/pacman/pkg
+mount /dev/sdb1 /mnt/var/cache/pacman/pkg
+
 pacstrap /mnt base base-devel i3 xorg xorg-apps xorg-drivers
 
 genfstab -U /mnt >> /mnt/etc/fstab
