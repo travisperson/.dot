@@ -53,6 +53,7 @@ grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 useradd -m travis -G wheel
+passwd -d travis
 
 mkdir /home/travis/dot
 curl -L https://api.github.com/repos/travisperson/.dot/tarball | tar xz -C /home/travis/dot --strip=1
@@ -71,11 +72,6 @@ cat >> /home/travis/.bash_profile <<EOF
 EOF
 
 ln -s /home/travis/dot/setup.sh /home/travis/.setup
-
-echo "Root password"
-passwd root
-echo "User password"
-passwd travis
 
 exit
 
