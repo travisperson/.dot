@@ -11,4 +11,11 @@ sudo pacman -Rns --noconfirm i3lock
 
 yaourt -S --noconfirm $(cat $HOME/dot/yaourt.txt)
 
+ln -s $HOME/dot/vim $HOME/.vim
+ln -s $HOME/dot/config $HOME/.config
+
+mkdir .apps/go
+
+curl -L https://dl.google.com/go/go1.10.linux-amd64.tar.gz | tar xz -C $HOME/.apps
+
 rm -f /home/travis/.setup
