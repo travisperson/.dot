@@ -18,4 +18,4 @@ mkdir .apps/go
 
 curl -L https://dl.google.com/go/go1.10.linux-amd64.tar.gz | tar xz -C $HOME/.apps
 
-rm -f /home/travis/.setup
+rm -f $HOME/.setup
