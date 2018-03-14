@@ -82,4 +82,7 @@ EOFSUB
 
 arch-chroot /mnt /bin/bash -c "/bin/bash /root/setup.sh"
 
+umount /mnt/var/cache/pacman/pkg
+umount /mnt
+
 reboot
