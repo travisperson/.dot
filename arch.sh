@@ -28,7 +28,7 @@ ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 hwclock --systohc
 
 sed -i -e "/#en_US.UTF-8 UTF-8/c\en_US.UTF-8 UTF-8" -e "/#en_US ISO-8859-1/c\en_US ISO-8859-1" /etc/locale.gen
-sed -i -e "/# %wheel ALL=(ALL) ALL/c\%wheel ALL=(ALL) ALL" /etc/sudoers
+sed -i -e "/# %wheel ALL=(ALL) NOPASSWD: ALL/c\%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
 
 locale-gen
 
