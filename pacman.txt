@@ -32,5 +32,4 @@ yaourt
 xorg-xinit
 zip
 open-vm-tools
-open-vm-tools-dkms
 gtkmm3
