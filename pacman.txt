@@ -28,4 +28,5 @@ urxvt-perls
 vim
 weechat
 yaourt
+xorg-xinit
 zip
