@@ -15,6 +15,7 @@ jq
 mplayer
 networkmanager
 nginx
+parallel
 pavucontrol
 pulseaudio
 ranger
