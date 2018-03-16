@@ -46,3 +46,5 @@ curl -L https://dl.google.com/go/go1.10.linux-amd64.tar.gz | tar xz -C $HOME/.ap
 sudo chsh -s $(which fish) $USER
 
 rm -f $HOME/.setup
+
+sudo reboot
