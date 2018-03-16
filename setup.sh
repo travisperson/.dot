@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
+cd "$(dirname $(readlink "${BASH_SOURCE[0]}"))" || exit 1
 
 BASE=$(pwd)
 IFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}' | tr -d ' ')
