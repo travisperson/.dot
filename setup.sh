@@ -5,7 +5,11 @@ cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 BASE=$(pwd)
 IFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}' | tr -d ' ')
 
-sudo dhcpcd $iface; sleep 5
+echo $BASE
+
+sleep 10;
+
+sudo dhcpcd $IFACE; sleep 5
 sudo pacman -Syu
 sudo pacman -S --noconfirm - < pacman.txt
 
