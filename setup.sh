@@ -18,17 +18,25 @@ sudo pacman -Rns --noconfirm i3lock
 
 yaourt -S --noconfirm $(cat yaourt.txt)
 
+# Sometimes these will show up and screw with the link
+rm -rf "$HOME/.config"
+rm -rf "$HOME/.vim"
+
 for rc in xinitrc Xdefaults gitconfig vim config; do
-  ln -sfv "$BASE/$rc" $HOME/."$rc"
+  ln -sfv "$BASE/$rc" "$HOME/.$rc"
 done
+
+mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/bin"
+mkdir -p "$HOME/bin"
+mkdir -p "$HOME/.apps"
 
 git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
-mkdir $HOME/.apps/go
-
 curl -L https://dl.google.com/go/go1.10.linux-amd64.tar.gz | tar xz -C $HOME/.apps
 
-chsh -s $(which fish) $USER
+# sudo to ignore password prompt
+sudo chsh -s $(which fish) $USER
 
 rm -f $HOME/.setup

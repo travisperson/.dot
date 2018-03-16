@@ -200,7 +200,13 @@ syntax enable                       " Enable syntax processing
 let base16colorspace=256
 set t_Co=256                        " Set 256 colors
 set background=dark                 " Optimize colors for dark background
-colorscheme gruvbox         " Set colorscheme (see base16 plugin)
+
+" First install will not have the color scheme
+try
+  colorscheme gruvbox               " Set colorscheme (see base16 plugin)
+catch
+  " Deal with it
+endtry
 
 highlight Pmenu ctermbg=238 gui=bold
 highlight Visual term=NONE ctermbg=0
