@@ -11,8 +11,8 @@ sudo pacman -Rns --noconfirm i3lock
 
 yaourt -S --noconfirm $(cat $HOME/dot/yaourt.txt)
 
-ln -s $HOME/dot/vim $HOME/.vim
-ln -s $HOME/dot/config $HOME/.config
+ln -sf $HOME/dot/vim $HOME/.vim
+ln -sf $HOME/dot/config $HOME/.config
 
 mkdir .apps/go
 
