@@ -9,9 +9,15 @@ echo $BASE
 
 sleep 10;
 
+sudo cat /proc/version > /etc/arch-release
+
 sudo dhcpcd $IFACE; sleep 5
 sudo pacman -Syu
 sudo pacman -S --noconfirm - < pacman.txt
+
+systemctl enable vmtoolsd.service
+systemctl enable vmware-vmblock-fuse.service
+systemctl enable dkms.service
 
 # This conflicts with i3lock-color-git in yaourt
 sudo pacman -Rns --noconfirm i3lock
