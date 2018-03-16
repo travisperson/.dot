@@ -15,9 +15,9 @@ sudo dhcpcd $IFACE; sleep 5
 sudo pacman -Syu
 sudo pacman -S --noconfirm - < pacman.txt
 
-systemctl enable vmtoolsd.service
-systemctl enable vmware-vmblock-fuse.service
-systemctl enable dkms.service
+sudo systemctl enable vmtoolsd.service
+sudo systemctl enable vmware-vmblock-fuse.service
+sudo systemctl enable dkms.service
 
 # This conflicts with i3lock-color-git in yaourt
 sudo pacman -Rns --noconfirm i3lock
@@ -33,7 +33,6 @@ for rc in xinitrc Xdefaults gitconfig vim config; do
 done
 
 mkdir -p "$HOME/.local/bin"
-mkdir -p "$HOME/bin"
 mkdir -p "$HOME/bin"
 mkdir -p "$HOME/.apps"
 
