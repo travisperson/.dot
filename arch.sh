@@ -19,9 +19,9 @@ timedatectl set-ntp true
 # Disk partition
 #
 
-PD_MAX_SECTORS=$(blockdev --getsz $PRIMARY_DEVICE)
+PD_MAX_SECTORS=$(blockdev --getsz "$PRIMARY_DEVICE")
 
-# sfdisk $PRIMARY_DEVICE <<EOF
+# sfdisk "$PRIMARY_DEVICE" <<EOF
 cat <<EOF
 label: gpt
 label-id: B0F48A5F-CB93-4C3F-8992-222217998248
@@ -30,13 +30,13 @@ unit: sectors
 first-lba: 2048
 last-lba: $((PD_MAX_SECTORS - 2048))
 
-$(PRIMARY_DEVICE)1 : start=        2048, size=                      2048, type=21686148-6449-6E6F-744E-656564454649, uuid=E88EB8CC-ADB4-6040-B3DA-1754D18368BA
-$(PRIMARY_DEVICE)2 : start=        4096, size= $((PD_MAX_SECTORS - 4096), type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, uuid=D02DD14B-A49F-F845-80E3-29EC929C7A95
+${PRIMARY_DEVICE}1 : start=        2048, size=                       2048, type=21686148-6449-6E6F-744E-656564454649, uuid=E88EB8CC-ADB4-6040-B3DA-1754D18368BA
+${PRIMARY_DEVICE}2 : start=        4096, size= $((PD_MAX_SECTORS - 4096)), type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, uuid=D02DD14B-A49F-F845-80E3-29EC929C7A95
 EOF
 
 # Format the second parittion as ext4
 
-echo mkfs.ext4 "$PRIMARY_DEVICE"2
+echo mkfs.ext4 "${PRIMARY_DEVICE}2"
 
 #
 # Initial disk setup
@@ -44,12 +44,12 @@ echo mkfs.ext4 "$PRIMARY_DEVICE"2
 
 # Mount primary
 
-echo mount "$PRIMARY_DEVICE"2 /mnt
+echo mount "${PRIMARY_DEVICE}2" /mnt
 
 # Setup pacman cache
 
 mkdir -p /mnt/var/cache/pacman/pkg
-mount $PACMAN_CACHE /mnt/var/cache/pacman/pkg
+mount "$PACMAN_CACHE" /mnt/var/cache/pacman/pkg
 
 #
 # Initial Install
@@ -77,13 +77,18 @@ ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 hwclock --systohc
 
 sed -i -e "/#en_US.UTF-8 UTF-8/c\en_US.UTF-8 UTF-8" -e "/#en_US ISO-8859-1/c\en_US ISO-8859-1" /etc/locale.gen
-sed -i -e "/# %wheel ALL=(ALL) NOPASSWD: ALL/c\%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
 
 locale-gen
 
 cat > /etc/locale.conf <<EOF
 LANG=en_US.UTF-8
 EOF
+
+#
+# Enable passwordless sudo for easy setup
+#
+
+sed -i -e "/# %wheel ALL=(ALL) NOPASSWD: ALL/c\%wheel ALL=(ALL) NOPASSWD: ALL" /etc/sudoers
 
 #
 # Hostname / host file setup
@@ -104,7 +109,7 @@ EOF
 #
 
 pacman -Sy --noconfirm grub
-grub-install --target=i386-pc $PRIMARY_DEVICE
+grub-install --target=i386-pc "$PRIMARY_DEVICE"
 grub-mkconfig -o /boot/grub/grub.cfg
 
 #
