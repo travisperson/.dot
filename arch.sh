@@ -21,8 +21,7 @@ timedatectl set-ntp true
 
 PD_MAX_SECTORS=$(blockdev --getsz "$PRIMARY_DEVICE")
 
-# sfdisk "$PRIMARY_DEVICE" <<EOF
-cat <<EOF
+sfdisk "$PRIMARY_DEVICE" <<EOF
 label: gpt
 label-id: B0F48A5F-CB93-4C3F-8992-222217998248
 device: $PRIMARY_DEVICE
@@ -36,7 +35,7 @@ EOF
 
 # Format the second parittion as ext4
 
-echo mkfs.ext4 "${PRIMARY_DEVICE}2"
+mkfs.ext4 "${PRIMARY_DEVICE}2"
 
 #
 # Initial disk setup
