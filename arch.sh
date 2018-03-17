@@ -1,31 +1,77 @@
 #!/bin/bash
 
+PACMAN_CACHE="/dev/sdb1"
+PRIMARY_DEVICE="/dev/sda"
+
+USER="travis"
+HOSTNAME="black"
+DOMAIN="travis.fyi"
+HOME="/home/$USER"
+DOT_TAR="https://api.github.com/repos/travisperson/.dot/tarball"
+
+#
+# Time
+#
+
 timedatectl set-ntp true
 
-timedatectl status
-fdisk -l
+#
+# Disk partition
+#
 
-sfdisk /dev/sda <<EOF
-label: dos
-label-id: 0xbb31c7d4
-device: /dev/sda
+PD_MAX_SECTORS=$(blockdev --getsz $PRIMARY_DEVICE)
+
+# sfdisk $PRIMARY_DEVICE <<EOF
+cat <<EOF
+label: gpt
+label-id: B0F48A5F-CB93-4C3F-8992-222217998248
+device: $PRIMARY_DEVICE
 unit: sectors
+first-lba: 2048
+last-lba: $((PD_MAX_SECTORS - 2048))
 
-/dev/sda1 : start= 2048, size= 2048, type=4
-/dev/sda2 : start= 4096, size= 41938944, type=83
+$(PRIMARY_DEVICE)1 : start=        2048, size=                      2048, type=21686148-6449-6E6F-744E-656564454649, uuid=E88EB8CC-ADB4-6040-B3DA-1754D18368BA
+$(PRIMARY_DEVICE)2 : start=        4096, size= $((PD_MAX_SECTORS - 4096), type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, uuid=D02DD14B-A49F-F845-80E3-29EC929C7A95
 EOF
 
-mkfs.ext4 /dev/sda2
-mount /dev/sda2 /mnt
+# Format the second parittion as ext4
+
+echo mkfs.ext4 "$PRIMARY_DEVICE"2
+
+#
+# Initial disk setup
+#
+
+# Mount primary
+
+echo mount "$PRIMARY_DEVICE"2 /mnt
+
+# Setup pacman cache
 
 mkdir -p /mnt/var/cache/pacman/pkg
-mount /dev/sdb1 /mnt/var/cache/pacman/pkg
+mount $PACMAN_CACHE /mnt/var/cache/pacman/pkg
+
+#
+# Initial Install
+#
 
 pacstrap /mnt base base-devel i3 xorg xorg-apps xorg-drivers
 
+#
+# Generate fstab
+#
+
 genfstab -U /mnt >> /mnt/etc/fstab
 
+#
+# Post chroot setup script
+#
+
 cat > /mnt/root/setup.sh <<EOFSUB
+
+#
+# Timezone / locale
+#
 
 ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 hwclock --systohc
@@ -39,29 +85,43 @@ cat > /etc/locale.conf <<EOF
 LANG=en_US.UTF-8
 EOF
 
+#
+# Hostname / host file setup
+#
+
 cat > /etc/hostname <<EOF
-black.travis.fyi
+$HOSTNAME.$DOMAIN
 EOF
 
 cat > /etc/hosts <<EOF
 127.0.0.1            localhost.localdomain localhost
 ::1                  localhost.localdomain localhost
-127.0.1.1            black.travis.fyi      myhostname
+127.0.1.1            $HOSTNAME.$DOMAIN $HOSTNAME
 EOF
 
+#
+# Setup Grub
+#
+
 pacman -Sy --noconfirm grub
-
-grub-install --target=i386-pc /dev/sda
-
+grub-install --target=i386-pc $PRIMARY_DEVICE
 grub-mkconfig -o /boot/grub/grub.cfg
 
-useradd -m travis -G wheel
-passwd -d travis
+#
+# User setup
+#
 
-mkdir /home/travis/.dot
-curl -L https://api.github.com/repos/travisperson/.dot/tarball | tar xz -C /home/travis/.dot --strip=1
+useradd -m $USER -d $HOME -G wheel
+passwd -d $USER
 
-chown -R travis:travis /home/travis
+mkdir $HOME/.dot
+curl -L $DOT_TAR | tar xz -C $HOME/.dot --strip=1
+
+chown -R $USER:$USER $HOME
+
+#
+# Yaourt
+#
 
 cat >> /etc/pacman.conf <<EOF
 
@@ -70,17 +130,29 @@ SigLevel = Never
 Server = https://repo.archlinux.fr/\\\$arch
 EOF
 
-cat >> /home/travis/.bash_profile <<EOF
+#
+# Post login setup
+#
+
+cat >> $HOME/.bash_profile <<EOF
 [[ -f ~/.setup ]] && sh ~/.setup
 EOF
 
-ln -s /home/travis/.dot/setup.sh /home/travis/.setup
+ln -s $HOME/.dot/setup.sh $HOME/.setup
 
 exit
 
 EOFSUB
 
+#
+# chroot install
+#
+
 arch-chroot /mnt /bin/bash -c "/bin/bash /root/setup.sh"
+
+#
+# Cleanup mounted dirs
+#
 
 umount /mnt/var/cache/pacman/pkg
 umount /mnt
