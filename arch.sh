@@ -43,7 +43,7 @@ mkfs.ext4 "${PRIMARY_DEVICE}2"
 
 # Mount primary
 
-echo mount "${PRIMARY_DEVICE}2" /mnt
+mount "${PRIMARY_DEVICE}2" /mnt
 
 # Setup pacman cache
 
