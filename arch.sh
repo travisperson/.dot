@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# PACMAN_CACHE is expected to be an already formated partition that is
+# ready to be written too. If from a previous installation it can contain
+# pacman packages that will be used during installation.
+
 PACMAN_CACHE="/dev/sdb1"
 PRIMARY_DEVICE="/dev/sda"
 
@@ -21,6 +25,9 @@ timedatectl set-ntp true
 
 PD_MAX_SECTORS=$(blockdev --getsz "$PRIMARY_DEVICE")
 
+# SATA Drives LBA starts @ 2048
+# 6144 = 4096 (Sector Start) + 2048 (First LBA)
+
 sfdisk "$PRIMARY_DEVICE" <<EOF
 label: gpt
 label-id: B0F48A5F-CB93-4C3F-8992-222217998248
@@ -30,12 +37,14 @@ first-lba: 2048
 last-lba: $((PD_MAX_SECTORS - 2048))
 
 ${PRIMARY_DEVICE}1 : start=        2048, size=                       2048, type=21686148-6449-6E6F-744E-656564454649, uuid=E88EB8CC-ADB4-6040-B3DA-1754D18368BA
-${PRIMARY_DEVICE}2 : start=        4096, size= $((PD_MAX_SECTORS - 4096)), type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, uuid=D02DD14B-A49F-F845-80E3-29EC929C7A95
+${PRIMARY_DEVICE}2 : start=        4096, size= $((PD_MAX_SECTORS - 6144)), type=0FC63DAF-8483-4772-8E79-3D69D8477DE4, uuid=D02DD14B-A49F-F845-80E3-29EC929C7A95
 EOF
+
+sync
 
 # Format the second parittion as ext4
 
-mkfs.ext4 "${PRIMARY_DEVICE}2"
+mkfs.ext4 -F "${PRIMARY_DEVICE}2"
 
 #
 # Initial disk setup
