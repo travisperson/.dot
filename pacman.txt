@@ -15,6 +15,7 @@ jq
 mplayer
 networkmanager
 nginx
+otf-font-awesome
 parallel
 pavucontrol
 pulseaudio

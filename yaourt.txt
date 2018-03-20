@@ -1,5 +1,4 @@
 i3lock-color-git
 paper-icon-theme-git
 pop-gtk-theme-git
-ttf-font-awesome
 open-vm-tools-dkms
