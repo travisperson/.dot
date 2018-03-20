@@ -1,0 +1,16 @@
+[Unit]
+Description=Load VMware shared folders
+Requires=vmware-vmblock-fuse.service
+After=vmware-vmblock-fuse.service
+ConditionPathExists=.host:/travis
+ConditionVirtualization=vmware
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=
+ExecStart=/usr/bin/vmhgfs-fuse -o allow_other -o auto_unmount .host:/travis /mnt/shared
+
+
+[Install]
+WantedBy=multi-user.target
