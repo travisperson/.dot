@@ -1,6 +1,9 @@
 #! /bin/bash
 
 xrdb -merge $HOME/.Xdefaults
+[[ -f $HOME/.feh_bg ]] && ./feh_bg
+
+vmware-user
 
 session=${1:-i3}
 
