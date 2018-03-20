@@ -1,17 +1,28 @@
 #!/bin/bash
+#
+# Travis Person (travis.person@gmail.com)
+#
+# Arch Linux Installation
 
-# PACMAN_CACHE is expected to be an already formated partition that is
-# ready to be written too. If from a previous installation it can contain
-# pacman packages that will be used during installation.
-
-PACMAN_CACHE="/dev/sdb1"
-PRIMARY_DEVICE="/dev/sda"
 
 USER="travis"
 HOSTNAME="black"
 DOMAIN="travis.fyi"
 HOME="/home/$USER"
 DOT_TAR="https://api.github.com/repos/travisperson/.dot/tarball"
+
+
+# PACMAN_CACHE is expected to be an already formated partition that is
+# ready to be written too. If from a previous installation it can contain
+# pacman packages that will be used during installation.
+
+PACMAN_CACHE="/dev/sdb1"
+
+# WARNING! The primary device will be destroyed and all data losted
+
+PRIMARY_DEVICE="/dev/sda"
+
+#
 
 #
 # Time
@@ -22,6 +33,7 @@ timedatectl set-ntp true
 #
 # Disk partition
 #
+# TODO: Detect and partition pacman cache?
 
 PD_MAX_SECTORS=$(blockdev --getsz "$PRIMARY_DEVICE")
 
