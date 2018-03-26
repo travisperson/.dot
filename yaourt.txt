@@ -1,4 +1,2 @@
 i3lock-color-git
-paper-icon-theme-git
-pop-gtk-theme-git
 open-vm-tools-dkms
