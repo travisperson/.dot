@@ -54,7 +54,7 @@ vim +PluginInstall +qall
 sudo chsh -s $(which fish) $USER
 
 # Start shared folder to transfer files
-sudo systemctl enable vmware-shared-folder.service
+sudo systemctl start vmware-shared-folder.service
 
 # Copy ssh keys / config
 cp /mnt/shared/.ssh/ $HOME/.ssh/
