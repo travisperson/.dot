@@ -53,6 +53,12 @@ vim +PluginInstall +qall
 # sudo to ignore password prompt
 sudo chsh -s $(which fish) $USER
 
+# Start shared folder to transfer files
+sudo systemctl enable vmware-shared-folder.service
+
+# Copy ssh keys / config
+cp /mnt/shared/.ssh/ $HOME/.ssh/
+
 # Attach to repo
 git init
 git remote add origin git@github.com:travisperson/.dot.git

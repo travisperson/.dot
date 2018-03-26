@@ -15,6 +15,7 @@ jq
 mplayer
 networkmanager
 nginx
+openssh
 otf-font-awesome
 parallel
 pavucontrol
