@@ -263,7 +263,7 @@ command! -bar RangerChooser call RangeChooser()
 nnoremap <leader>r :<C-U>RangerChooser<CR>
 
 set backupdir=~/.vim/backup//
-set directory=~/.vim/swp//
+set directory=~/.vim/swap//
 set noautochdir
 
 match error /\cheigth\|lenght\|widht/

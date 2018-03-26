@@ -40,6 +40,9 @@ for rc in xinitrc Xdefaults gitconfig vim config; do
   ln -sfv "$BASE/$rc" "$HOME/.$rc"
 done
 
+mkdir -p "$HOME/.vim/backup"
+mkdir -p "$HOME/.vim/undo"
+mkdir -p "$HOME/.vim/swap"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/bin"
 mkdir -p "$HOME/.apps"
@@ -50,6 +53,12 @@ vim +PluginInstall +qall
 # sudo to ignore password prompt
 sudo chsh -s $(which fish) $USER
 
+# Attach to repo
+git init
+git remote add origin git@github.com:travisperson/.dot.git
+git fetch origin
+git reset origin/master
+
 rm -f $HOME/.setup
 
-sudo reboot
+# sudo reboot
