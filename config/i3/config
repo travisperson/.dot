@@ -6,7 +6,7 @@
 set $mod Mod4
 
 # Set font family
-font pango:source-code-pro-medium 10
+font pango:source-code-pro-medium 12
 
 #-------------------------#
 #    Color Definition     #
