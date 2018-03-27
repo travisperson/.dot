@@ -1,0 +1,40 @@
+#!/bin/bash
+# required: inotify-tools
+
+RESTORE='\033[0m'
+LRED='\033[01;31m'
+LBLUE='\033[01;34m'
+LGRAY='\033[00;37m'
+
+function print_banner {
+  local msg="$1..."
+  local color=$2
+  local columns=$(tput cols)
+  local length=${#msg}
+  local padlength=$((columns-length-2))
+  local halfpadlength=$(( padlength / 2 ))
+  local fulldelim=$(printf "%-${columns}s" "=")
+  local halfdelim=$(printf "%-${halfpadlength}s" "=")
+
+  if [ $((length%2)) -eq 0 ]; then
+    msg=$msg
+  else
+    msg="${msg}."
+  fi
+
+  echo -e "${LGRAY}${fulldelim// /=}${RESTORE}"
+  echo -en "${LGRAY}${halfdelim// /=}${RESTORE}"
+  echo -en "${color} $msg ${RESTORE}"
+  echo -e "${LGRAY}${halfdelim// /=}${RESTORE}"
+  echo -e "${LGRAY}${fulldelim// /=}${RESTORE}"
+}
+
+while true; do
+  print_banner "IPFS Daemon starting" $LBLUE
+  ipfs daemon &
+  PID=$!
+  inotifywait -q -e attrib ipfs > /dev/null
+  print_banner "IPFS Daemon shutting down" $LRED
+  kill $PID
+  wait $PID
+done

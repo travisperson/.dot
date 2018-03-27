@@ -12,6 +12,7 @@ gnupg
 htop
 httpie
 imagemagick
+inotify-tools
 jq
 mplayer
 networkmanager

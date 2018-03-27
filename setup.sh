@@ -40,6 +40,10 @@ for rc in xinitrc Xdefaults gitconfig vim config; do
   ln -sfv "$BASE/$rc" "$HOME/.$rc"
 done
 
+for rc in bin; do
+  ln -sfv "$BASE/$rc" "$HOME/$rc"
+done
+
 mkdir -p "$HOME/.vim/backup"
 mkdir -p "$HOME/.vim/undo"
 mkdir -p "$HOME/.vim/swap"
