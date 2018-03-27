@@ -9,7 +9,8 @@ FL_IN="/tmp/in"
 FL_PIPE="/tmp/pipe"
 
 function setup {
-  touch $FL_IN $FL_OUT
+  cat /dev/null > $FL_IN
+  cat /dev/null > $FL_OUT
 
   if [ ! -e $FL_PIPE ]; then
     mkfifo $FL_PIPE
