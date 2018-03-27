@@ -1,6 +1,8 @@
 #!/bin/bash
 # required: inotify-tools
 
+IPFS=$(which ipfs)
+
 RESTORE='\033[0m'
 LRED='\033[01;31m'
 LBLUE='\033[01;34m'
@@ -31,9 +33,9 @@ function print_banner {
 
 while true; do
   print_banner "IPFS Daemon starting" $LBLUE
-  ipfs daemon &
+  $IPFS daemon &
   PID=$!
-  inotifywait -q -e attrib ipfs > /dev/null
+  inotifywait -q -e attrib $IPFS > /dev/null
   print_banner "IPFS Daemon shutting down" $LRED
   kill $PID
   wait $PID

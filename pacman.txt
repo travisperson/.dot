@@ -18,6 +18,7 @@ mplayer
 networkmanager
 nginx
 openssh
+openbsd-netcat
 otf-font-awesome
 pamixer
 parallel

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+PORT=9876
+
+# ipfs-proxy --api /ip4/127.0.0.1/tcp/9876 add proxy
+# tail -f in
+# tail -f out
+FL_OUT="/tmp/out"
+FL_IN="/tmp/in"
+FL_PIPE="/tmp/pipe"
+
+function setup {
+  touch $FL_IN $FL_OUT
+
+  if [ ! -e $FL_PIPE ]; then
+    mkfifo $FL_PIPE
+  fi
+}
+
+function run {
+  while [ 1 ]; do
+    nc -l -p $PORT < $FL_PIPE \
+      | tee -a $FL_IN         \
+      | nc localhost 5001     \
+      | tee -a $FL_OUT        \
+      > $FL_PIPE
+  done
+}
+
+if [ "$1" == "proxy" ]; then
+  setup
+  run
+  exit 0
+fi
+
+# Execute things against the proxy
+ipfs --api /ip4/127.0.0.1/tcp/$PORT $@
