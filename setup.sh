@@ -65,6 +65,20 @@ git remote add origin git@github.com:travisperson/.dot.git
 git fetch origin
 git reset origin/master
 
+# asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
+cp $HOME/.asdf/completions/asdf.fish $HOME/.config/fish/completions
+
+asdf plugin-add golang
+asdf plugin-add nodejs
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+
+asdf install golang 1.10
+asdf global golang 1.10
+
+asdf install nodejs 9.9.0
+asdf global nodejs 9.9.0
+
 rm -f $HOME/.setup
 
 # sudo reboot
