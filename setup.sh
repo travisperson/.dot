@@ -57,7 +57,7 @@ sudo chsh -s $(which fish) $USER
 sudo systemctl start vmware-shared-folder.service
 
 # Copy ssh keys / config
-cp /mnt/shared/.ssh/ $HOME/.ssh/
+cp -r /mnt/shared/.ssh/ $HOME/.ssh/
 
 # Attach to repo
 git init
