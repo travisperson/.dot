@@ -73,6 +73,8 @@ git reset origin/master
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
 cp $HOME/.asdf/completions/asdf.fish $HOME/.config/fish/completions
 
+source $HOME/.asdf/asdf.bash
+
 asdf plugin-add golang
 asdf plugin-add nodejs
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
