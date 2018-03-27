@@ -17,12 +17,14 @@ networkmanager
 nginx
 openssh
 otf-font-awesome
+pamixer
 parallel
 pavucontrol
 pulseaudio
 ranger
 rofi
 scrot
+sysstat
 the_silver_searcher
 tree
 ttf-dejavu
