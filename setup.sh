@@ -73,7 +73,7 @@ git reset origin/master
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
 cp $HOME/.asdf/completions/asdf.fish $HOME/.config/fish/completions
 
-source $HOME/.asdf/asdf.bash
+source $HOME/.asdf/asdf.sh
 
 asdf plugin-add golang
 asdf plugin-add nodejs
