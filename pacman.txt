@@ -39,3 +39,4 @@ xorg-xinit
 zip
 open-vm-tools
 gtkmm3
+xdg-utils
