@@ -97,7 +97,7 @@ go="$HOME/.asdf/installs/golang/$golangversion/go/bin/go"
 
 env GOPATH=$HOME $go get github.com/travisperson/go-http-format
 env GOPATH=$HOME $go get github.com/travisperson/go-psleep
-env GOPATH=$HOME $go get github.com/ipfs/go-ipfs && (cd $HOME/src/github.com/ipfs/go-ipfs && make install)
+env GOPATH=$HOME $go get github.com/ipfs/go-ipfs && (cd $HOME/src/github.com/ipfs/go-ipfs && env GOPATH=$HOME make install)
 
 rm -f $HOME/.setup
 
