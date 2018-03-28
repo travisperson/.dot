@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Check if any of my source directories are dirty
+
+LIST=$(find $HOME/src -type d -name '.git')
+RC=0
+
+for f in $LIST; do
+  dir=$(dirname $f)
+
+  git -C $dir status | grep 'nothing to commit, working tree clean' 2>&1 > /dev/null
+
+  if [[ $? != 0 ]]; then
+    echo $dir; RC=1
+  fi
+done
+
+exit $RC
