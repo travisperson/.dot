@@ -80,7 +80,7 @@ source $HOME/.asdf/asdf.sh
 
 asdf plugin-add golang
 asdf plugin-add nodejs
-bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+bash $HOME/.asdf/plugins/nodejs/bin/import-release-team-keyring
 
 golangversion="1.10"
 nodejsversion="9.9.0"
@@ -93,11 +93,11 @@ asdf global nodejs $nodejsversion
 
 env GOPATH=$HOME vim +GoInstallBinaries +qall
 
-go=".asdf/installs/golang/$golangversion/go/bin/go"
+go="$HOME/.asdf/installs/golang/$golangversion/go/bin/go"
 
 $go get github.com/travisperson/go-http-format
 $go get github.com/travisperson/go-psleep
-$go get github.com/ipfs/go-ipfs && (cd $HOME/src/github.com/ipfs/go-ipfs; make install)
+$go get github.com/ipfs/go-ipfs && (cd $HOME/src/github.com/ipfs/go-ipfs && make install)
 
 rm -f $HOME/.setup
 
