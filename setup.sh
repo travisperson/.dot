@@ -40,16 +40,21 @@ for rc in xinitrc Xdefaults gitconfig vim config; do
   ln -sfv "$BASE/$rc" "$HOME/.$rc"
 done
 
-for rc in bin; do
-  ln -sfv "$BASE/$rc" "$HOME/$rc"
-done
-
 mkdir -p "$HOME/.vim/backup"
 mkdir -p "$HOME/.vim/undo"
 mkdir -p "$HOME/.vim/swap"
 mkdir -p "$HOME/.local/bin"
-mkdir -p "$HOME/bin"
 mkdir -p "$HOME/.apps"
+
+mkdir -p "$HOME/bin"
+for bin in $BASE/bin/*; do
+  ln -sfv "$bin" "$HOME/bin/"
+done
+
+mkdir -p "$HOME/.local/share/applications"
+for bin in $BASE/desktop-entries/*; do
+  ln -sfv "$bin" "$HOME/.local/share/applications/"
+done
 
 git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
@@ -89,6 +94,7 @@ vim +GoInstallBinaries
 
 go get github.com/travisperson/go-http-format
 go get github.com/travisperson/go-psleep
+go get github.com/ipfs/go-ipfs && (cd $HOME/src/github.com/ipfs/go-ipfs; make install)
 
 rm -f $HOME/.setup
 
