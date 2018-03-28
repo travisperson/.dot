@@ -37,13 +37,16 @@ function tail_out {
 
 case "$1" in
 "proxy")
+    echo -n "IPFS Proxy"
     setup
     run
     ;;
 "proxy-in")
+    echo "IPFS Proxy - IN"
     tail_in
     ;;
 "proxy-out")
+    echo "IPFS Proxy - OUT"
     tail_out
     ;;
 *)
