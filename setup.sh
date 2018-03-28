@@ -3,15 +3,13 @@
 cd "$(dirname $(readlink "${BASH_SOURCE[0]}"))" || exit 1
 
 BASE=$(pwd)
-IFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}' | tr -d ' ')
+# IFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}' | tr -d ' ')
 
 echo $BASE
 
-sleep 10;
+# sudo cat /proc/version > /etc/arch-release
 
-sudo cat /proc/version > /etc/arch-release
-
-sudo dhcpcd $IFACE; sleep 5
+sudo dhcpcd; sleep 5
 sudo pacman -Syu
 sudo pacman -S --noconfirm - < pacman.txt
 
@@ -84,17 +82,22 @@ asdf plugin-add golang
 asdf plugin-add nodejs
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
 
-asdf install golang 1.10
-asdf global golang 1.10
+golangversion="1.10"
+nodejsversion="9.9.0"
 
-asdf install nodejs 9.9.0
-asdf global nodejs 9.9.0
+asdf install golang $golangversion
+asdf global golang $golangversion
 
-vim +GoInstallBinaries
+asdf install nodejs $nodejsversion
+asdf global nodejs $nodejsversion
 
-go get github.com/travisperson/go-http-format
-go get github.com/travisperson/go-psleep
-go get github.com/ipfs/go-ipfs && (cd $HOME/src/github.com/ipfs/go-ipfs; make install)
+env GOPATH=$HOME vim +GoInstallBinaries +qall
+
+go=".asdf/installs/golang/$golangversion/go/bin/go"
+
+$go get github.com/travisperson/go-http-format
+$go get github.com/travisperson/go-psleep
+$go get github.com/ipfs/go-ipfs && (cd $HOME/src/github.com/ipfs/go-ipfs; make install)
 
 rm -f $HOME/.setup
 
