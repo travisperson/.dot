@@ -95,9 +95,9 @@ env GOPATH=$HOME vim +GoInstallBinaries +qall
 
 go="$HOME/.asdf/installs/golang/$golangversion/go/bin/go"
 
-$go get github.com/travisperson/go-http-format
-$go get github.com/travisperson/go-psleep
-$go get github.com/ipfs/go-ipfs && (cd $HOME/src/github.com/ipfs/go-ipfs && make install)
+env GOPATH=$HOME $go get github.com/travisperson/go-http-format
+env GOPATH=$HOME $go get github.com/travisperson/go-psleep
+env GOPATH=$HOME $go get github.com/ipfs/go-ipfs && (cd $HOME/src/github.com/ipfs/go-ipfs && make install)
 
 rm -f $HOME/.setup
 
