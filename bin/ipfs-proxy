@@ -27,11 +27,28 @@ function run {
   done
 }
 
-if [ "$1" == "proxy" ]; then
-  setup
-  run
-  exit 0
-fi
+function tail_in {
+  tail -f $FL_IN | go-http-format
+}
 
-# Execute things against the proxy
-ipfs --api /ip4/127.0.0.1/tcp/$PORT $@
+function tail_out {
+  tail -f $FL_OUT | go-http-format
+}
+
+case "$1" in
+"proxy")
+    setup
+    run
+    ;;
+"proxy-in")
+    tail_in
+    ;;
+"proxy-out")
+    tail_out
+    ;;
+*)
+    # Execute things against the proxy
+    ipfs --api /ip4/127.0.0.1/tcp/$PORT $@
+    ;;
+esac
+
