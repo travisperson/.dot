@@ -24,6 +24,7 @@ pamixer
 parallel
 pavucontrol
 pulseaudio
+perl-anyevent-i3
 ranger
 rofi
 scrot
