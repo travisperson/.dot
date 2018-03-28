@@ -197,6 +197,16 @@ mode --pango_markup $sysmenu {
     bindsym Escape    mode "default"
 }
 
+# IPFS menu
+set $ipfsmenu "  [r]estart  "
+bindsym $mod+Shift+d      mode $ipfsmenu
+
+mode --pango_markup $ipfsmenu {
+    bindsym r         exec "ipfs-restart"; mode "default"
+    bindsym Return    mode "default"
+    bindsym Escape    mode "default"
+}
+
 #-------------------------#
 #         i3bar           #
 #-------------------------#
