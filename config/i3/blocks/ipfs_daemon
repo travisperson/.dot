@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ICON=""
+if [ -f $HOME/.ipfs/repo.lock ]; then
+  echo "$ICON Online"
+  echo "$ICON Online"
+  echo "#a3be8c"
+else
+  echo "$ICON Offline"
+  echo "$ICON Offline"
+  echo "#4f5b66"
+fi
