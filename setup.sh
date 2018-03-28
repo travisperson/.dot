@@ -53,6 +53,7 @@ mkdir -p "$HOME/.apps"
 
 git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+vim +GoInstallBinaries
 
 # sudo to ignore password prompt
 sudo chsh -s $(which fish) $USER
