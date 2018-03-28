@@ -53,7 +53,6 @@ mkdir -p "$HOME/.apps"
 
 git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
-vim +GoInstallBinaries
 
 # sudo to ignore password prompt
 sudo chsh -s $(which fish) $USER
@@ -85,6 +84,8 @@ asdf global golang 1.10
 
 asdf install nodejs 9.9.0
 asdf global nodejs 9.9.0
+
+vim +GoInstallBinaries
 
 rm -f $HOME/.setup
 
