@@ -87,6 +87,9 @@ asdf global nodejs 9.9.0
 
 vim +GoInstallBinaries
 
+go get github.com/travisperson/go-http-format
+go get github.com/travisperson/go-psleep
+
 rm -f $HOME/.setup
 
 # sudo reboot
