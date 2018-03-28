@@ -1,9 +1,17 @@
 ! "Margin between rows" Set from: XResources
-rofi.width:                          30
+rofi.font:                           source-code-pro bold 16
+rofi.sidebar-mode:                   true
+rofi.hide-scrollbar:                 true
+rofi.fixed-num-lines:                true
+rofi.width:                          40
 rofi.line-margin:                    4
-rofi.line-padding:                   1
+rofi.line-padding:                   2
+rofi.lines:                          12
+rofi.columns:                        1
+rofi.padding:                        14
 rofi.separator-style:                solid
 rofi.modi:                           drun,run,window,ssh
+rofi.bw:                             6
 rofi.display-run:                    Run
 rofi.display-drun:                   Applications
 rofi.display-window:                 Windows
