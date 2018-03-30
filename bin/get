@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Move into the gopath source dir
+cd $GOPATH/src
+
+function clone {
+  local repo="$1"
+  local dir=$(dirname "$repo")
+  local ssh_repo="git@$(sed -e 's#github\.com/#github\.com:#' <(echo $repo)).git"
+
+  if [ -d "$repo" ]; then
+    git -C "$repo" fetch origin
+  else
+    mkdir -p "$dir" && git clone $ssh_repo $repo
+  fi
+}
+
+if ! go get -d "$1" > /dev/null 2>&1; then
+    clone "$1"
+fi
