@@ -1,0 +1,12 @@
+[Unit]
+Description=IPFS daemon
+
+[Service]
+User=ipfs
+Group=ipfs
+Environment="IPFS_PATH=/opt/ipfs"
+ExecStart=/usr/bin/ipfs daemon
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
