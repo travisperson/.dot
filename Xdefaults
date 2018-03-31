@@ -1,7 +1,6 @@
 ! Font Configuration
 Xft.antialias:  1
 Xft.autohint:   0
-Xft.dpi:        188
 Xft.hinting:    1
 Xft.hintstyle:  hintslight
 Xft.lcdfilter:  lcddefault
@@ -91,6 +90,10 @@ URxvt.cursorUnderline: true
 URxvt.imLocale:        en_US.UTF-8
 URxvt.scrollBar:       false
 URxvt.font:            xft:Source Code Pro:size=12:antialias=true:hinting=true:hintstyle=hintfull:autohint=false,xft:Inconsolata\ for\ Powerline:pixelsize=12,xft:DejaVu Sans:pixelsize=12
+
+URxvt.keysym.Meta-k: command:\033]720;1\007
+URxvt.keysym.Meta-j: command:\033]721;1\007
+URxvt.keysym.Meta-o: string:ranger\n
 
 
 ! Rofi
