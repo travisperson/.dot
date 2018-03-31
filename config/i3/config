@@ -185,7 +185,7 @@ client.urgent           $base02     $base08     $base07     $base08
 
 # Power menu
 set $sysmenu "  [r]estart - [l]ogout - [s]uspend - re[b]oot - po[w]eroff  "
-bindsym $mod+Shift+e      mode $sysmenu
+bindsym $mod+Shift+e  mode $sysmenu
 
 mode --pango_markup $sysmenu {
     bindsym r         restart
@@ -199,10 +199,20 @@ mode --pango_markup $sysmenu {
 
 # IPFS menu
 set $ipfsmenu "  [r]estart  "
-bindsym $mod+Shift+d      mode $ipfsmenu
+bindsym $mod+Shift+d  mode $ipfsmenu
 
 mode --pango_markup $ipfsmenu {
     bindsym r         exec "ipfs-restart"; mode "default"
+    bindsym Return    mode "default"
+    bindsym Escape    mode "default"
+}
+
+# Layout menu
+set $layoutmenu "  [t]hree-columns  "
+bindsym $mod+Shift+f  mode $layoutmenu
+
+mode --pango_markup $layoutmenu {
+    bindsym t         exec "$HOME/.dot/i3-workspaces/layout-three-columns.sh"; mode "default"
     bindsym Return    mode "default"
     bindsym Escape    mode "default"
 }
