@@ -52,6 +52,7 @@ syntax enable
 syntax on
 set encoding=utf-8
 set termencoding=utf-8
+set completeopt-=preview
 
 let mapleader = "\<Space>"
 
