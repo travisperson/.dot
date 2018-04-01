@@ -86,6 +86,7 @@ URxvt.color248: #bdae93
 URxvt.color250: #d5c4a1
 
 URxvt.urgentOnBell:    on
+Xcursor.size:          45
 URxvt.cursorUnderline: true
 URxvt.imLocale:        en_US.UTF-8
 URxvt.scrollBar:       false
