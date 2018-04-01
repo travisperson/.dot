@@ -5,6 +5,7 @@ clang
 cmake
 docker
 docker-compose
+dunst
 feh
 fish
 git
@@ -41,4 +42,5 @@ xorg-xinit
 zip
 open-vm-tools
 gtkmm3
+yarn
 xdg-utils
