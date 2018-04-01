@@ -44,3 +44,4 @@ open-vm-tools
 gtkmm3
 yarn
 xdg-utils
+xcursor-vanilla-dmz

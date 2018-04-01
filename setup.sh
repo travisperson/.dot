@@ -34,7 +34,7 @@ sudo systemctl enable dkms.service
 rm -rf "$HOME/.config"
 rm -rf "$HOME/.vim"
 
-for rc in xinitrc Xdefaults gitconfig vim config; do
+for rc in xinitrc Xdefaults gitconfig vim config icons; do
   ln -sfv "$BASE/$rc" "$HOME/.$rc"
 done
 
