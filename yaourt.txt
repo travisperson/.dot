@@ -1,2 +1,3 @@
 i3lock-color-git
 open-vm-tools-dkms
+xcwd-git
