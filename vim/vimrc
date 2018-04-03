@@ -29,6 +29,7 @@ Plugin 'vim-pandoc/vim-pandoc-syntax'       " Pandoc Markdown support
 Plugin 'itchyny/calendar.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'AndrewRadev/id3.vim'
+Plugin 'wakatime/vim-wakatime'
 
 call vundle#end()
 filetype plugin indent on
