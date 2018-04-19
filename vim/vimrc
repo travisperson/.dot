@@ -191,7 +191,7 @@ map <Leader>n :nohl<CR>
 map <Leader>tt :TagbarToggle<CR>
 map <Leader>tr :NERDTreeToggle<CR>
 map <Leader>tg :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extras=+q .<CR>
-map <Leader>p :CtrlPTag<CR>
+map <Leader>p :CtrlP $HOME/src/github.com<CR>
 map <Leader>d :GoDef<CR>
 map <Leader>i :GoImplements<CR>
 map <Leader>b :GoBuild<CR>
