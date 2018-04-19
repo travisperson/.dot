@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# required: inotify-tools
+
+function sort_into_directories {
+  local path="$1"
+  local filename=$(basename $path)
+  local extension="${filename##*.}"
+
+
+  if [ "$extension" = "$filename" ]; then
+      mv "$path" "$HOME/tmp/random/"
+    return
+  fi
+
+  case $extension in
+    md | markdown)
+      mv "$path" "$HOME/docs/"
+      ;;
+    log)
+      mv "$path" "$HOME/tmp/logs/"
+      ;;
+    txt)
+      mv "$path" "$HOME/tmp/random/"
+      ;;
+    *)
+      mv "$path" "$HOME/tmp/unassorted/"
+  esac
+}
+
+inotifywait -me CLOSE --format '%e %f' -q $HOME |
+while IFS= read -r change; do
+  echo $change
+  if [[ ! $change = *"ISDIR"* ]]; then
+    files=$(find $HOME -maxdepth 1 -type f -not -name ".*")
+    for path in $files; do
+      echo $path
+      sort_into_directories $path
+    done
+  fi
+done

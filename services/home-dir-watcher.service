@@ -1,0 +1,11 @@
+[Unit]
+Description=Home Directory Watcher
+
+[Service]
+User=travis
+Group=travis
+ExecStart=/home/travis/bin/home-dir-watcher
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
