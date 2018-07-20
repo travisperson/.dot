@@ -1,5 +1,6 @@
 [user]
 	email = travis@protocol.ai
 	name = Travis Person
+	signingkey = 453DB0C26D460B53
 [core]
 	editor = vim
