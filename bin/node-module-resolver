@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+packages=$(find . -type f -name 'package.json')
+module_name="$1"
+cwd=$(pwd)
+
+function find_package_dir {
+  local src=$(dirname $1)
+
+  while [[ ! "$src" =~ "node_modules/$module_name"$ ]]; do
+    src=$(dirname $src)
+  done
+
+  echo $src
+}
+
+function resolve_module_from_dir {
+  local dir="$1"
+  local module="$2"
+
+  pushd $dir > /dev/null
+  loc=$(node -pe "require.resolve('$module').substr(${#cwd})")
+  loc=$(find_package_dir $loc)
+  popd > /dev/null
+  echo $loc
+}
+
+for p in $packages; do
+  package_version=$(cat $p | jq '.version' | tr -d '"')
+  package_name=$(cat $p | jq '.name' | tr -d '"')
+  module_version=$(cat $p | jq ".dependencies.\"$module_name\"" | tr -d '"')
+  if [ ! "$module_version" = "null" ]; then
+    dir=$(dirname $p)
+    echo "Package $package_name@$package_version wants $module_name@$module_version"
+    echo " from $dir"
+    loc=$(resolve_module_from_dir $dir $module_name)
+    r_module_version=$(cat ".$loc/package.json" | jq '.version' | tr -d '"')
+    echo " resolves to .$loc@$r_module_version"
+    echo ""
+    echo ""
+
+  fi
+done
