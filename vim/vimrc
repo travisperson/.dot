@@ -24,8 +24,6 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/ZoomWin'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-pandoc/vim-pandoc'              " Pandoc Markdown support
-Plugin 'vim-pandoc/vim-pandoc-syntax'       " Pandoc Markdown support
 Plugin 'itchyny/calendar.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'AndrewRadev/id3.vim'
@@ -40,7 +38,7 @@ set clipboard=unnamed
 
 let g:gruvbox_italic=1
 
-""  Vim Go
+"" Vim Go
 
 let g:go_highlight_operators = 1
 let g:go_highlight_extra_types = 1
@@ -54,6 +52,10 @@ syntax on
 set encoding=utf-8
 set termencoding=utf-8
 set completeopt-=preview
+
+"" No Folding
+
+set nofoldenable
 
 let mapleader = "\<Space>"
 
@@ -195,8 +197,10 @@ map <Leader>p :CtrlP $HOME/src/github.com<CR>
 map <Leader>d :GoDef<CR>
 map <Leader>i :GoImplements<CR>
 map <Leader>b :GoBuild<CR>
+map <Leader>k :GoDoc<CR>
 map <Leader>v :GoTest<CR>
-map <Leader>n :GoRun<CR>
+map <leader>a :GoAlternate<CR>
+map <leader>f :GoDeclsDir<CR>
 
 syntax enable                       " Enable syntax processing
 let base16colorspace=256
