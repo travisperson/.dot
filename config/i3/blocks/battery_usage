@@ -1,0 +1,70 @@
+#!/usr/bin/bash
+
+BAT_1="" # 100
+BAT_2="" # 075
+BAT_3="" # 050
+BAT_4="" # 025
+BAT_5="" # 000
+
+FULL="#fbf1c7"
+NORM=""
+WARN="#d79921"
+DANG="#cc241d"
+
+
+battery_status () {
+  data=$(acpi -b)
+
+  TH=$(echo $data | awk -F '[,:% ]' '{ print $9 }')
+  TM=$(echo $data | awk -F '[,:% ]' '{ print $10 }')
+  TS=$(echo $data | awk -F '[,:% ]' '{ print $11 }')
+  LEVEL=$(echo $data | awk -F '[,:% ]' '{ print $6 }')
+  STATE=$(echo $data | awk -F '[,:% ]' '{ print $4 }')
+
+  if [ "$LEVEL" -gt "95" ]; then
+    ICON=$BAT_1
+    COLOR=$FULL
+  elif [ "$LEVEL" -gt "65" ]; then
+    ICON=$BAT_2
+    COLOR=$NORM
+  elif [ "$LEVEL" -gt "20" ]; then
+    ICON=$BAT_3
+    COLOR=$NORM
+  elif [ "$LEVEL" -gt "10" ]; then
+    ICON=$BAT_4
+    COLOR=$WARN
+  else
+    ICON=$BAT_5
+    COLOR=$DANG
+  fi
+
+  STATUS="$LEVEL%"
+
+  if [ "$STATE" == "Charging" ]; then
+    COLOR="#b8bb26"
+
+    if [ "$1" == "time_left" ]; then
+      STATUS="$(($TH * 60 + $TM))m"
+    fi
+  fi
+
+  if [ "$STATE" == "Discharging" ]; then
+    if [ "$1" == "time_left" ]; then
+      STATUS="$(($TH * 60 + $TM))m"
+    fi
+  fi
+
+  if [ "$STATE" == "Full" ]; then
+    COLOR="#98971a"
+    STATUS=""
+  fi
+
+  echo $ICON $STATUS
+  echo $ICON $STATUS
+  echo $COLOR
+}
+
+case $BLOCK_BUTTON in
+  3) battery_status time_left ;;  # right click, mute/unmute
+  *) battery_status ;;
+esac

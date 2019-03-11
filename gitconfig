@@ -1,6 +1,8 @@
 [user]
-	email = travis@protocol.ai
+	email = travisperson@users.noreply.github.com
 	name = Travis Person
 	signingkey = 453DB0C26D460B53
 [core]
 	editor = vim
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative

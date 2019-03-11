@@ -1,0 +1,14 @@
+#!/bin/bash
+
+STATUS=$(rfkill | grep tpacpi_bluetooth | awk '{ print $4 }')
+ICON=""
+
+if [ $STATUS == "unblocked" ] ; then
+  COLOR="#a3be8c"
+else
+  COLOR="#4f5b66"
+fi
+
+echo $ICON
+echo $ICON
+echo $COLOR

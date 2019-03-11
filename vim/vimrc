@@ -8,7 +8,8 @@ call vundle#begin()
 Plugin 'chriskempson/base16-vim'            " base16 colors
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'fatih/vim-go'
-"Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shouge/deoplete.nvim'
+Plugin 'zchee/deoplete-go'
 Plugin 'ervandew/supertab'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-fugitive'
@@ -30,9 +31,17 @@ Plugin 'AndrewRadev/id3.vim'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'rbgrouleff/bclose.vim'
+Plugin 'stamblerre/gocode', {'rtp': 'nvim/'}
 
 call vundle#end()
 filetype plugin indent on
+
+"" Deoplete
+
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+"" Clipboard
 
 set clipboard=unnamed
 
@@ -48,9 +57,17 @@ let g:ranger_replace_netrw = 1
 
 "" Vim Go
 
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_methods = 1
 let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_array_whitespace_error = 1
+
+let g:go_auto_type_info = 1
+
 
 "" Auto change buffer directory
 autocmd BufEnter * silent! lcd %:p:h
@@ -83,28 +100,6 @@ nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>+ <Plug>AirlineSelectNextTab
-
-"" Configure Neo
-let g:neocomplete#enable_at_startup = 1
-
-if !exists('g:neocomplete#keyword_patterns')
-  let g:neocomplete#keyword_patterns = {}
-endif
-
-if !exists('g:neocomplete#sources#omni#functions')
-  let g:neocomplete#sources#omni#functions = {}
-endif
-
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-
-let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
-let g:neocomplete#sources#omni#functions.javascript = 'tern#Complete'
 
 "" Configure CtrlP
 
@@ -166,7 +161,6 @@ autocmd FileType stylus setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 autocmd FileType go setlocal shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 autocmd FileType go iab :+ :=
-autocmd FileType go let g:SuperTabDefaultCompletionType="<c-x><c-o>"
 
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 

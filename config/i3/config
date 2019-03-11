@@ -52,18 +52,11 @@ bindsym --release Print        exec "scrot -z ~/tmp/screenshots/%Y-%m-%d_%k:%M:%
 bindsym --release Mod1+Sys_Req exec "scrot -zu ~/tmp/screenshots/%Y-%m-%d_%k:%M:%S.png"
 bindsym --release Shift+Print  exec "scrot -zs ~/tmp/screenshots/%Y-%m-%d_%k:%M:%S.png"
 
-# Background
-bindsym $mod+b exec --no-startup-id "reddit-background ultrahdwallpapers:top:10:week"
-
-# Fix displays
-bindsym $mod+m exec --no-startup-id "~/.screenlayout/default.sh"
-
 ## Symbol Keys
-# bindsym XF86MonBrightnessUp   exec xbacklight -inc 20 # increase screen brightness
-# bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp   exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
-# exec --no-startup-id /usr/bin/xcompmgr -c
-exec --no-startup-id redshift-gtk
+exec --no-startup-id /usr/bin/xcompmgr -c
 
 #-------------------------#
 #       Workspaces        #
@@ -113,6 +106,12 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
+
+# lock
+bindsym $mod+x exec lock
+
+# reset screen
+bindsym $mod+m exec /home/travis/.screenlayout/default.sh
 
 # focus the child container
 bindsym $mod+z focus child

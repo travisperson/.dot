@@ -3,7 +3,7 @@
 xrdb -merge $HOME/.Xdefaults
 [[ -f $HOME/.fehbg ]] && . $HOME/.fehbg
 
-vmware-user
+setxkbmap -option ctrl:nocaps
 
 session=${1:-i3}
 

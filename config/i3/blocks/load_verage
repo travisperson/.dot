@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+load() {
+  cat /proc/loadavg | awk '{print $1}'
+}
+
+load
