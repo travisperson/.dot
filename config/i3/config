@@ -56,6 +56,9 @@ bindsym --release Shift+Print  exec "scrot -zs ~/tmp/screenshots/%Y-%m-%d_%k:%M:
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
+bindsym XF86AudioRaiseVolume  exec pamixer --increase 5
+bindsym XF86AudioLowerVolume  exec pamixer --decrease 5
+
 exec --no-startup-id /usr/bin/xcompmgr -c
 
 #-------------------------#
