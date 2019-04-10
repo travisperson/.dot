@@ -21,12 +21,14 @@ QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print int($3 * 100 / 70) }
 # QUALITY=$(sudo grep $INTERFACE /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
 
 # Set Icon
-
-if [ $STATUS == "down" ] || [ $STATUS == "dormant" ] ; then
-    ICON=""
+ICON=""
+LINE="$(nmcli -t con show --active)"
+INTERFACE="$(echo "$LINE" | grep wireless | cut -d':' -f4)"
+if [ -z "$INTERFACE" ]; then
+    # Ethernet is down
     COLOR="#4f5b66"
-elif [ $STATUS == "up" ] ; then
-    ICON=""
+else
+    IP="$(nmcli -t device show "$INTERFACE" | grep IP4.ADDRESS | cut -d':' -f2 | cut -d'/' -f1)"
     if [ $QUALITY -ge 70 ] ; then
         COLOR="#a3be8c"
     elif [ $QUALITY -ge 50 ] ; then
@@ -38,6 +40,8 @@ elif [ $STATUS == "up" ] ; then
     fi
 fi
 
-echo $ICON      # Full text label
-echo $ICON      # Short text label (Used when status line gets too long)
-echo $COLOR     # Label color
+
+echo $ICON $IP     # Full text label
+echo $ICON                  # Short text label (Used when status line gets too long)
+echo $COLOR                 # Label color
+
