@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#------------------------------------------------------------------------
+
+brightness() {
+  echo "$(xbacklight -get | cut -d'.' -f1)%"
+}
+
+#------------------------------------------------------------------------
+
+case $BLOCK_BUTTON in
+  4) xbacklight -inc 10 ;; # scroll up, increase
+  5) xbacklight -dec 10 ;; # scroll down, decrease
+esac
+
+brightness
