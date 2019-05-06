@@ -13,7 +13,7 @@ DANG="#cc241d"
 
 
 battery_status () {
-  data=$(acpi -b)
+  data=$(acpi -b | grep -v unavailable)
 
   TH=$(echo $data | awk -F '[,:% ]' '{ print $9 }')
   TM=$(echo $data | awk -F '[,:% ]' '{ print $10 }')
